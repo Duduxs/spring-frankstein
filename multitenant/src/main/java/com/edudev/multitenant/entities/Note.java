@@ -6,8 +6,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "notes")
-public class Note {
-
+public class Note implements TenantSupport {
     @Id
     @GeneratedValue(strategy = IDENTITY)
 
@@ -15,8 +14,9 @@ public class Note {
     @Column(name = "title")
     private String title;
 
-    public Note() {
-    }
+    private String tenantId;
+
+    public Note() { }
 
     public Note(Long id, String title) {
         this.id = id;
@@ -37,5 +37,15 @@ public class Note {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    @Override
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 }
