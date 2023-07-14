@@ -1,11 +1,18 @@
 package com.edudev.multitenant.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "notes")
+@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = String.class)})
+@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 public class Note implements TenantSupport {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -14,9 +21,12 @@ public class Note implements TenantSupport {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "tenant_id")
+    @JsonProperty(access = WRITE_ONLY)
     private String tenantId;
 
-    public Note() { }
+    public Note() {
+    }
 
     public Note(Long id, String title) {
         this.id = id;
