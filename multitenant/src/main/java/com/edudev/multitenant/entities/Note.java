@@ -1,5 +1,6 @@
 package com.edudev.multitenant.entities;
 
+import com.edudev.multitenant.filters.TenantContext;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Filter;
@@ -57,5 +58,13 @@ public class Note implements TenantSupport {
     @Override
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+
+    @PrePersist
+    @PreUpdate
+    void updateTenant() {
+        if (!TenantContext.getCurrentTenant().isEmpty() && TenantContext.getCurrentTenant() != null) {
+            setTenantId(TenantContext.getCurrentTenant());
+        }
     }
 }
