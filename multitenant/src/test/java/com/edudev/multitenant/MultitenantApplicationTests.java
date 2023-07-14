@@ -1,10 +1,10 @@
-package com.edudev.graphql;
+package com.edudev.multitenant;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GraphqlApplicationTests {
+class MultitenantApplicationTests {
 
 	@Test
 	void contextLoads() {
