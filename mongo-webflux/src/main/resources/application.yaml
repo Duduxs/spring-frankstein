@@ -1,6 +1,8 @@
 spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: webflux
+      uri: mongodb://eduardo:123@localhost:27017/webflux?authSource=admin
