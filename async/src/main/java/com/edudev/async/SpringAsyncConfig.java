@@ -12,7 +12,9 @@ import java.util.concurrent.Executor;
 public class SpringAsyncConfig implements AsyncConfigurer {
     @Override
     public Executor getAsyncExecutor() {
-        return new ThreadPoolTaskExecutor();
+        var scheduler = new ThreadPoolTaskExecutor();
+        scheduler.initialize();
+        return scheduler;
     }
 
 }
