@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  mongo-webflux:
+    image: mongo
+    container_name: mongo-spring-webflux
+    ports:
+      - '27017:27017'
+    volumes:
+      - 'mongo-webflux-volume:/data/db'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=eduardo
+      - MONGO_INITDB_ROOT_PASSWORD=123
+
+volumes:
+  mongo-webflux-volume:
+    name: mongo-webflux-volume
