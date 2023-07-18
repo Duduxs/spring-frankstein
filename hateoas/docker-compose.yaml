@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  spring-hateoas:
+    container_name: spring-hateoas
+    image: postgres
+    command: -p 5445
+    environment:
+      POSTGRES_USER: eduardo
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: rest
+    volumes:
+      - spring-hateoas-volume:/var/lib/postgresql
+    expose:4
+      - '5445'
+    ports:
+      - '5445:5445'
+
+volumes:
+  spring-hateoas-volume:
+    name: spring-hateoas-volume

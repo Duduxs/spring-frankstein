@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5445/rest
+    username: eduardo
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+  application:
+    name: spring-glory-rest-hateoas
