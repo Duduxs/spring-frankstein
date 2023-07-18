@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerResource {
+@RequestMapping("/camada1")
+public class CustomerResourceLayer1 {
 
     @Autowired
     private CustomerRepository repository;
