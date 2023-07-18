@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("customers")
+@RequestMapping("camada2")
 public class CustomerResourceLayer2 {
 
     @Autowired
