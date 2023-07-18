@@ -4,11 +4,13 @@ import com.edudev.hateoas.entities.Customer;
 import com.edudev.hateoas.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("customers")
@@ -21,9 +23,10 @@ public class CustomerResourceLayer3 {
     public ResponseEntity<Collection<EntityModel<Customer>>> findAll() {
         var result = repository.findAll()
                 .stream()
-                .map(entity -> EntityModel.of(entity).add(
-                        WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CustomerResourceLayer3.class).findById(entity.id)).withSelfRel()
-                )).toList();
+                .map(entity -> EntityModel
+                        .of(entity)
+                        .add(linkTo(methodOn(CustomerResourceLayer3.class).findById(entity.id)).withSelfRel()))
+                .toList();
 
         return ResponseEntity.ok(result);
     }
@@ -32,7 +35,7 @@ public class CustomerResourceLayer3 {
     public ResponseEntity<EntityModel<Customer>> findById(@PathVariable Long id) {
         var result = repository.findById(id)
                 .map(entity -> EntityModel.of(entity)
-                        .add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CustomerResourceLayer3.class).findAll()).withRel("Find All Customers"))
+                        .add(linkTo(methodOn(CustomerResourceLayer3.class).findAll()).withRel("Find All Customers"))
                 );
 
         return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -43,7 +46,7 @@ public class CustomerResourceLayer3 {
     public ResponseEntity<EntityModel<Customer>> create(@RequestBody Customer customer) {
         var created = repository.save(customer);
 
-        var em = EntityModel.of(created).add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CustomerResourceLayer3.class).findById(created.id)).withSelfRel());
+        var em = EntityModel.of(created).add(linkTo(methodOn(CustomerResourceLayer3.class).findById(created.id)).withSelfRel());
         return ResponseEntity.status(201).body(em);
     }
 
