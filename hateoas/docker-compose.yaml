@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: rest
     volumes:
       - spring-hateoas-volume:/var/lib/postgresql
-    expose:4
+    expose:
       - '5445'
     ports:
       - '5445:5445'
