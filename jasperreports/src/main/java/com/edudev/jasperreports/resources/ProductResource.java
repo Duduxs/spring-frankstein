@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,14 +24,14 @@ public class ProductResource {
     private DataSource dataSource;
 
     @GetMapping("/report")
-    public void printReport(HttpServletResponse response) throws JRException, IOException {
+    public void printReport(HttpServletResponse response) throws JRException, IOException, SQLException {
 
         var stream = getClass().getResourceAsStream("/reports/Products.jasper");
 
         Map<String, Object> params = new HashMap<>();
 
         JasperReport jasperReport = (JasperReport) JRLoader.loadObject(stream);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource.getConnection());
 
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "inline; filename=products.pdf");
