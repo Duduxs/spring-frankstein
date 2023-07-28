@@ -26,7 +26,8 @@ public record Mangaka(
 
         Float weight,
 
-        @OneToMany(orphanRemoval = true, cascade = {PERSIST, MERGE, REMOVE})
+        @OneToMany(orphanRemoval = true, cascade = {MERGE, REMOVE})
+        @JoinColumn(name = "mangaka_id")
         Collection<Manga> mangas
 
 ) {

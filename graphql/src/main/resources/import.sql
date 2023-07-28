@@ -1,0 +1,1 @@
+INSERT INTO tb_manga (name, description, grade, releaseAt) VALUES ('One piece', 'A pirate adventure', 9.8, '1997-07-22');
