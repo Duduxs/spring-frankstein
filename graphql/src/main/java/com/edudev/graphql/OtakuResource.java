@@ -47,6 +47,13 @@ public class OtakuResource {
         return mangakaRepository.save(newMangaka);
     }
 
+    @MutationMapping
+    public boolean deleteMangaka(@Argument Long id) {
+        var mangaka = mangakaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Mangaka not found with id " + id));
+        mangakaRepository.delete(mangaka);
+        return true;
+    }
 
 
     public record InputMangaka(String name, Integer age, String gender, Float height, Float weight) {
