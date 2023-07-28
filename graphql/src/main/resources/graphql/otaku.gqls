@@ -11,8 +11,6 @@ type Mutation {
     createManga(dto: InputManga!): Manga!
     updateManga(id: ID!, dto: InputManga!): Manga!
     deleteManga(id: ID!): Boolean
-
-
 }
 
 input InputMangaka {
