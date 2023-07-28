@@ -38,6 +38,16 @@ public class OtakuResource {
         return mangakaRepository.save(mangaka);
     }
 
+    @MutationMapping
+    public Mangaka updateMangaka(@Argument Long id, @Argument InputMangaka dto) {
+        var mangaka = mangakaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Mangaka not found with id " + id));
+
+        var newMangaka = new Mangaka(mangaka.getId(), dto.name, dto.age, Gender.valueOf(dto.gender), dto.height, dto.weight, new ArrayList<>());
+        return mangakaRepository.save(newMangaka);
+    }
+
+
 
     public record InputMangaka(String name, Integer age, String gender, Float height, Float weight) {
     }

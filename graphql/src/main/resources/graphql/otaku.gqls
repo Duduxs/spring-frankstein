@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
     createMangaka(dto: InputMangaka!): Mangaka!
+    updateMangaka(id: ID!, dto: InputMangaka!): Mangaka!
 }
 
 input InputMangaka {
