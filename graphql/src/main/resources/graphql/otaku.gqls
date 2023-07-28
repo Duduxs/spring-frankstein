@@ -7,6 +7,12 @@ type Mutation {
     createMangaka(dto: InputMangaka!): Mangaka!
     updateMangaka(id: ID!, dto: InputMangaka!): Mangaka!
     deleteMangaka(id: ID!): Boolean
+
+    createManga(dto: InputManga!): Manga!
+    updateManga(id: ID!, dto: InputManga!): Manga!
+    deleteManga(id: ID!): Boolean
+
+
 }
 
 input InputMangaka {
@@ -15,6 +21,13 @@ input InputMangaka {
     gender: String!
     height: Float!
     weight: Float!
+}
+
+input InputManga {
+    name: String!
+    description: String
+    grade: Float!
+    mangakaId: ID!
 }
 
 type Mangaka {
@@ -32,4 +45,5 @@ type Manga {
     name: String!
     description: String
     grade: Float!
+    mangaka: Mangaka!
 }

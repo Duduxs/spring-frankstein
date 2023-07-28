@@ -1,13 +1,11 @@
 package com.edudev.graphql;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -29,6 +27,10 @@ public final class Manga {
 
     @Getter
     private final Float grade;
+
+    @Getter
+    @ManyToOne(fetch = LAZY)
+    private final Mangaka mangaka;
 
 
 }

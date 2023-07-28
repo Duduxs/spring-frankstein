@@ -55,7 +55,37 @@ public class OtakuResource {
         return true;
     }
 
+    @MutationMapping
+    public Manga createManga(@Argument InputManga dto) {
+        var mangaka = mangakaRepository.findById(dto.mangakaId).orElseThrow(() -> new IllegalArgumentException("Mangaka not found with id " + dto.mangakaId));
+        var manga = new Manga(null, dto.name, dto.description, dto.grade, mangaka);
+        return mangaRepository.save(manga);
+    }
+
+    @MutationMapping
+    public Manga updateManga(@Argument Long id, @Argument InputManga dto) {
+        var manga = mangaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Manga not found with id " + id));
+
+        var mangaka = mangakaRepository.findById(dto.mangakaId).orElseThrow(() -> new IllegalArgumentException("Mangaka not found with id " + dto.mangakaId));
+
+
+        var newManga = new Manga(manga.getId(), dto.name, dto.description, dto.grade, mangaka);
+        return mangaRepository.save(newManga);
+    }
+
+    @MutationMapping
+    public boolean deleteManga(@Argument Long id) {
+        var manga = mangaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Manga not found with id " + id));
+        mangaRepository.delete(manga);
+        return true;
+    }
+
 
     public record InputMangaka(String name, Integer age, String gender, Float height, Float weight) {
+    }
+
+    public record InputManga(String name, String description, Float grade, Long mangakaId) {
     }
 }
