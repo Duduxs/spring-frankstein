@@ -4,24 +4,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.AUTO;
 
 @Entity
 @Table(name = "tb_manga")
-public record Manga(
+@NoArgsConstructor
+@AllArgsConstructor
+public final class Manga {
 
-        @Id
-        @GeneratedValue(strategy = AUTO)
-        Long id,
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    @Getter
+    private final Long id = null;
 
-        String name,
+    @Getter
+    private final String name = null;
 
-        String description,
+    @Getter
+    private final String description = null;
 
-        Float grade,
+    @Getter
+    private final Float grade = 0f;
 
-        Date releaseAt
-) { }
+
+}
+
+
