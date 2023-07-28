@@ -1,0 +1,21 @@
+type Query {
+    findById(id: ID!): Mangaka
+    findAll: [Mangaka]!
+}
+
+type Mangaka {
+    id: ID!
+    name: String!
+    age: Int!
+    gender: String!
+    height: Float!
+    weight: Float!
+    mangas: [Manga]!
+}
+
+type Manga {
+    id: ID!
+    name: String!
+    description: String
+    grade: Float!
+}
