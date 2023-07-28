@@ -8,27 +8,27 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static jakarta.persistence.GenerationType.AUTO;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "tb_manga")
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 public final class Manga {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     @Getter
-    private final Long id = null;
+    private final Long id;
 
     @Getter
-    private final String name = null;
+    private final String name;
 
     @Getter
-    private final String description = null;
+    private final String description;
 
     @Getter
-    private final Float grade = 0f;
+    private final Float grade;
 
 
 }

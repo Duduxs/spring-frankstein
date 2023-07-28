@@ -3,6 +3,18 @@ type Query {
     findAll: [Mangaka]!
 }
 
+type Mutation {
+    createMangaka(dto: InputMangaka!): Mangaka!
+}
+
+input InputMangaka {
+    name: String!
+    age: Int!
+    gender: String!
+    height: Float!
+    weight: Float!
+}
+
 type Mangaka {
     id: ID!
     name: String!
