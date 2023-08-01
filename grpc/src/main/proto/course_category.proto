@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package edudev_grpc;
+
+option java_package = "com.edudev.grpc.protos";
+option java_outer_classname = "CourseCategoryProtos";
+option java_multiple_files = true;
+
+message Category {
+  optional string id = 1;
+  optional string name = 2;
+  optional string description = 3;
+}
+
+message CreateCategoryRequest {
+  optional string name = 2;
+  optional string description = 3;
+}
+
+message CategoryResponse {
+  optional Category category = 1;
+}
+
+service CategoryService {
+  rpc CreateCategory(CreateCategoryRequest) returns (CategoryResponse);
+//  rpc UpdateCategory(Category) returns (CategoryResponse);
+//  rpc DeleteCategory(Category) returns (CategoryResponse);
+//  rpc GetCategory(Category) returns (CategoryResponse);
+//  rpc ListCategories(Category) returns (stream CategoryResponse);
+}
