@@ -6,32 +6,84 @@ option java_package = "com.edudev.grpc.protos";
 option java_outer_classname = "CourseCategoryProtos";
 option java_multiple_files = true;
 
+// Definition of the "Category" entity message that will transport as binary in network.
 message Category {
-  optional string id = 1;
-  optional string name = 2;
-  optional string description = 3;
+  optional string id = 1; // Category's unique identifier.
+  optional string name = 2; // Category's name e.g Games
+  optional string description = 3; // Category's desc e.g "Games for PC"
 }
 
+// Message used only as a input to create a category.
 message CreateCategoryRequest {
-  optional string name = 1;
-  optional string description = 2;
+  optional string name = 1; // Category's name e.g Games
+  optional string description = 2; // Category's desc e.g "Games for PC"
 }
 
+// Message used only as a input to search a category by its id.
 message GetCategoryRequest {
-  optional string id = 1;
+  optional string id = 1; // Category's unique identifier.
 }
 
+// Message used only as a output to list all categories.
 message CategoryListResponse {
-  repeated Category categories = 1;
+  repeated Category categories = 1; // List of categories.
 }
 
+// Definition of the "Empty" message, used for an empty request/response.
 message Empty { }
 
+/* The `CategoryService` service provides methods to manage and retrieve category-related information. */
 service CategoryService {
+  /* Method to create a new category.
+     This is a unary RPC method, meaning it sends a single request and receives a single response.
+     Request:
+     - `CreateCategoryRequest`: A message containing the details of the category to be created.
+     Response:
+     - `Category`: A message representing the newly created category. */
   rpc CreateCategory(CreateCategoryRequest) returns (Category);
+
+  /* Method to create multiple categories using a client streaming approach.
+     This is a client streaming RPC method, meaning it accepts a stream of requests from the client
+     and returns a single response.
+     Request:
+     - `stream CreateCategoryRequest`: A stream of messages, each containing the details of a category
+       to be created.
+     Response:
+     - `CategoryListResponse`: A message containing a list of categories that were successfully created. */
   rpc CreateCategoryClientStream(stream CreateCategoryRequest) returns (CategoryListResponse);
+
+  /* Method to create a category and stream the result back to the client.
+     This is a server streaming RPC method, meaning it sends a single request and receives a stream of responses.
+     Request:
+     - `CreateCategoryRequest`: A message containing the details of the category to be created.
+     Response:
+     - Stream of `Category`: A stream of messages, each representing a category created. */
   rpc CreateCategoryServerStream(CreateCategoryRequest) returns (stream Category);
+
+  /* Method to create categories bidirectionally through a streaming channel.
+     This is a bidirectional streaming RPC method, meaning it accepts a stream of requests from the client
+     and returns a stream of responses.
+     Request:
+     - `stream CreateCategoryRequest`: A stream of messages, each containing the details of a category
+       to be created.
+     Response:
+     - Stream of `Category`: A stream of messages, each representing a category created. */
   rpc CreateCategoryBidirectionalStream(stream CreateCategoryRequest) returns (stream Category);
+
+  /* Method to retrieve the details of a specific category based on the provided category ID.
+     This is a unary RPC method, meaning it sends a single request and receives a single response.
+     Request:
+     - `GetCategoryRequest`: A message containing the ID of the category to retrieve.
+     Response:
+     - `Category`: A message representing the retrieved category.*/
   rpc GetCategory(GetCategoryRequest) returns (Category);
+
+  /* Method to retrieve a list of all available categories.
+     This is a unary RPC method, meaning it sends a single request and receives a single response.
+     Request:
+     - `Empty`: An empty message with no fields.
+     Response:
+     - `CategoryListResponse`: A message containing a list of all available categories.*/
   rpc ListCategories(Empty) returns (CategoryListResponse);
 }
+
