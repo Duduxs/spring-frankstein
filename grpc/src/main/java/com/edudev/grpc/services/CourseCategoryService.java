@@ -77,7 +77,7 @@ public class CourseCategoryService extends CategoryServiceImplBase {
      */
 
     @Override
-    public StreamObserver<CreateCategoryRequest> createCategoryStream(StreamObserver<CategoryListResponse> responseObserver) {
+    public StreamObserver<CreateCategoryRequest> createCategoryClientStream(StreamObserver<CategoryListResponse> responseObserver) {
         return new StreamObserver<>() {
 
             final List<Category> categoryList = new ArrayList<>();
@@ -110,6 +110,21 @@ public class CourseCategoryService extends CategoryServiceImplBase {
                 responseObserver.onCompleted();
             }
         };
+    }
+
+    @Override
+    public void createCategoryServerStream(CreateCategoryRequest request, StreamObserver<com.edudev.grpc.protos.Category> responseObserver) {
+        categoryRepository.save(new Category(null, request.getName(), request.getDescription()));
+
+        categoryRepository.findAll().stream().map(category -> com.edudev.grpc.protos.Category.newBuilder()
+                .setId(category.id.toString())
+                .setName(category.name)
+                .setDescription(category.description)
+                .build()
+        ).forEach(responseObserver::onNext);
+
+
+        responseObserver.onCompleted();
     }
 
     @Override

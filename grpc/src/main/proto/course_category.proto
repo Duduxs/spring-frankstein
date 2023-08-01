@@ -29,7 +29,8 @@ message Empty { }
 
 service CategoryService {
   rpc CreateCategory(CreateCategoryRequest) returns (Category);
-  rpc CreateCategoryStream(stream CreateCategoryRequest) returns (CategoryListResponse);
+  rpc CreateCategoryClientStream(stream CreateCategoryRequest) returns (CategoryListResponse);
+  rpc CreateCategoryServerStream(CreateCategoryRequest) returns (stream Category);
   rpc CreateCategoryBidirectionalStream(stream CreateCategoryRequest) returns (stream Category);
   rpc GetCategory(GetCategoryRequest) returns (Category);
   rpc ListCategories(Empty) returns (CategoryListResponse);
