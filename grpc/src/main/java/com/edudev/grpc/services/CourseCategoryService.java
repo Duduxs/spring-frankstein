@@ -1,8 +1,10 @@
 package com.edudev.grpc.services;
 
 import com.edudev.grpc.entities.Category;
+import com.edudev.grpc.protos.CategoryListResponse;
 import com.edudev.grpc.protos.CategoryServiceGrpc.CategoryServiceImplBase;
 import com.edudev.grpc.protos.CreateCategoryRequest;
+import com.edudev.grpc.protos.Empty;
 import com.edudev.grpc.repositories.CategoryRepository;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
@@ -32,5 +34,21 @@ public class CourseCategoryService extends CategoryServiceImplBase {
         );
 
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void listCategories(Empty request, StreamObserver<CategoryListResponse> responseObserver) {
+
+        var categories = categoryRepository.findAll().stream().map(category ->
+                com.edudev.grpc.protos.Category.newBuilder()
+                        .setId(category.id.toString())
+                        .setName(category.name)
+                        .setDescription(category.description)
+                        .build()
+        ).toList();
+
+        responseObserver.onNext(CategoryListResponse.newBuilder().addAllCategories(categories).build());
+        responseObserver.onCompleted();
+
     }
 }

@@ -17,11 +17,17 @@ message CreateCategoryRequest {
   optional string description = 3;
 }
 
+message CategoryListResponse {
+  repeated Category categories = 1;
+}
+
+message Empty { }
 
 service CategoryService {
   rpc CreateCategory(CreateCategoryRequest) returns (Category);
-//  rpc UpdateCategory(Category) returns (CategoryResponse);
+  rpc ListCategories(Empty) returns (CategoryListResponse);
+
+  //  rpc UpdateCategory(Category) returns (CategoryResponse);
 //  rpc DeleteCategory(Category) returns (CategoryResponse);
 //  rpc GetCategory(Category) returns (CategoryResponse);
-//  rpc ListCategories(Category) returns (stream CategoryResponse);
 }
