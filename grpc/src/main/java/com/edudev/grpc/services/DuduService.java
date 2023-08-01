@@ -9,7 +9,7 @@ import org.lognet.springboot.grpc.GRpcService;
 
 
 @GRpcService
-public class GrpcService extends PersonServiceImplBase {
+public class DuduService extends PersonServiceImplBase {
 
     @Override
     public void getPerson(Description request, StreamObserver<Person> responseObserver) {
