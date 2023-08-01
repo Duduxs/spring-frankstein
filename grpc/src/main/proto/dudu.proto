@@ -1,5 +1,7 @@
 syntax = "proto3";
-package person;
+
+package dudu;
+option java_package = "com.edudev.grpc";
 
 service PersonService {
   rpc GetPerson(Description) returns (Person);

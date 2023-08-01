@@ -1,15 +1,15 @@
 package com.edudev.grpc.services;
 
 
+import com.edudev.grpc.Dudu.Description;
+import com.edudev.grpc.Dudu.Person;
+import com.edudev.grpc.PersonServiceGrpc.PersonServiceImplBase;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import person.Dudu.Description;
-import person.PersonServiceGrpc;
 
-import static person.Dudu.Person;
 
 @GRpcService
-public class GrpcService extends PersonServiceGrpc.PersonServiceImplBase {
+public class GrpcService extends PersonServiceImplBase {
 
     @Override
     public void getPerson(Description request, StreamObserver<Person> responseObserver) {
