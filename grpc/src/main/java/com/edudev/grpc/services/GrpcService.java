@@ -3,17 +3,19 @@ package com.edudev.grpc.services;
 
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
-import person.Dudu;
+import person.Dudu.Description;
 import person.PersonServiceGrpc;
+
+import static person.Dudu.Person;
 
 @GRpcService
 public class GrpcService extends PersonServiceGrpc.PersonServiceImplBase {
 
     @Override
-    public void getPerson(Dudu.Description request, StreamObserver<Dudu.Person> responseObserver) {
+    public void getPerson(Description request, StreamObserver<Person> responseObserver) {
 
         var description = request.getDescription();
-        var person = Dudu.Person.newBuilder()
+        var person = Person.newBuilder()
                 .setId("1")
                 .setName("Eduardo José")
                 .setDescription(description)
