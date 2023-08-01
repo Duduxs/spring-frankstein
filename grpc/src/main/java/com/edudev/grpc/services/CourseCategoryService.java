@@ -5,6 +5,7 @@ import com.edudev.grpc.protos.CategoryListResponse;
 import com.edudev.grpc.protos.CategoryServiceGrpc.CategoryServiceImplBase;
 import com.edudev.grpc.protos.CreateCategoryRequest;
 import com.edudev.grpc.protos.Empty;
+import com.edudev.grpc.protos.GetCategoryRequest;
 import com.edudev.grpc.repositories.CategoryRepository;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
@@ -33,6 +34,22 @@ public class CourseCategoryService extends CategoryServiceImplBase {
                         .build()
         );
 
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getCategory(GetCategoryRequest request, StreamObserver<com.edudev.grpc.protos.Category> responseObserver) {
+        var id = request.getId();
+        if (id.isEmpty() || id.isBlank())
+            throw new IllegalArgumentException("A valid id must be provided");
+
+        var category = categoryRepository.findById(Long.valueOf(id)).orElseThrow(() -> new IllegalArgumentException("Category not found"));
+
+        responseObserver.onNext(com.edudev.grpc.protos.Category.newBuilder()
+                .setId(category.id.toString())
+                .setName(category.name)
+                .setDescription(category.description)
+                .build());
         responseObserver.onCompleted();
     }
 
