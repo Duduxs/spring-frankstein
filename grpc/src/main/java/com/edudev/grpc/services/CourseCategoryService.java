@@ -1,7 +1,6 @@
 package com.edudev.grpc.services;
 
 import com.edudev.grpc.entities.Category;
-import com.edudev.grpc.protos.CategoryResponse;
 import com.edudev.grpc.protos.CategoryServiceGrpc.CategoryServiceImplBase;
 import com.edudev.grpc.protos.CreateCategoryRequest;
 import com.edudev.grpc.repositories.CategoryRepository;
@@ -19,20 +18,17 @@ public class CourseCategoryService extends CategoryServiceImplBase {
     }
 
     @Override
-    public void createCategory(CreateCategoryRequest request, StreamObserver<CategoryResponse> responseObserver) {
+    public void createCategory(CreateCategoryRequest request, StreamObserver<com.edudev.grpc.protos.Category> responseObserver) {
 
         var category = new Category(null, request.getName(), request.getDescription());
         categoryRepository.save(category);
 
         responseObserver.onNext(
-                CategoryResponse
-                        .newBuilder()
-                        .setCategory(
-                                com.edudev.grpc.protos.Category.newBuilder()
-                                        .setId(category.id.toString())
-                                        .setName(category.name)
-                                        .setDescription(category.description)
-                        ).build()
+                com.edudev.grpc.protos.Category.newBuilder()
+                        .setId(category.id.toString())
+                        .setName(category.name)
+                        .setDescription(category.description)
+                        .build()
         );
 
         responseObserver.onCompleted();

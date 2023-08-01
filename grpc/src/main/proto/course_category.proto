@@ -17,12 +17,9 @@ message CreateCategoryRequest {
   optional string description = 3;
 }
 
-message CategoryResponse {
-  optional Category category = 1;
-}
 
 service CategoryService {
-  rpc CreateCategory(CreateCategoryRequest) returns (CategoryResponse);
+  rpc CreateCategory(CreateCategoryRequest) returns (Category);
 //  rpc UpdateCategory(Category) returns (CategoryResponse);
 //  rpc DeleteCategory(Category) returns (CategoryResponse);
 //  rpc GetCategory(Category) returns (CategoryResponse);
