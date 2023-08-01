@@ -9,10 +9,25 @@ service PersonService {
   rpc GetPerson(Description) returns (Person);
 }
 
+// The 'Gender' enum represents the gender of a person.
+enum Gender {
+  // Gender is unspecified or unknown.
+  GENDER_UNSPECIFIED = 0;
+
+  // Male gender.
+  MALE = 1;
+
+  // Female gender.
+  FEMALE = 2;
+}
+
 // The 'Description' message represents a description for a Person entity.
 message Description {
   // The description field is a string that provides additional information about the Person.
   string description = 1;
+  /* The gender field is an optional field representing the gender of the Person.
+   If not specified, the gender will be considered as unspecified. */
+  optional Gender gender = 2;
 }
 
 // The 'Person' message represents an individual person.
@@ -28,4 +43,7 @@ message Person {
   /* The description field is a string that provides information about the Person.
    It is required for a valid Person entity. */
   string description = 3;
+
+  // The gender field represents the gender of the Person.
+  Gender gender = 4;
 }

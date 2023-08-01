@@ -15,10 +15,12 @@ public class GrpcService extends PersonServiceImplBase {
     public void getPerson(Description request, StreamObserver<Person> responseObserver) {
 
         var description = request.getDescription();
+        var gender = request.getGender();
         var person = Person.newBuilder()
                 .setId("1")
                 .setName("Eduardo José")
                 .setDescription(description)
+                .setGender(gender)
                 .build();
 
         responseObserver.onNext(person);
