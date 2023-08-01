@@ -6,7 +6,7 @@
 <h4 align="center">
   <p>Spring Frankstein</p>
   
-  <p>A set of applications in Spring with the objective of studying micro and macro concepts of the framework.</p>
+  <p>A set of applications in Spring with the objective of studying micro and macro concepts of the framework along with other techs.</p>
   
 </h4>
 
