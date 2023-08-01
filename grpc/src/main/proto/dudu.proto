@@ -1,0 +1,16 @@
+syntax = "proto3";
+package person;
+
+service PersonService {
+  rpc GetPerson(Description) returns (Person);
+}
+
+message Description {
+  string description = 1;
+}
+
+message Person {
+    string id = 1;
+    optional string name = 2;
+    string description = 3;
+}
