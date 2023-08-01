@@ -3,16 +3,29 @@ syntax = "proto3";
 package dudu;
 option java_package = "com.edudev.grpc";
 
+// The 'PersonService' service allows clients to interact with the Person entity.
 service PersonService {
+  // GetPerson RPC method allows clients to retrieve a Person based on a given Description.
   rpc GetPerson(Description) returns (Person);
 }
 
+// The 'Description' message represents a description for a Person entity.
 message Description {
+  // The description field is a string that provides additional information about the Person.
   string description = 1;
 }
 
+// The 'Person' message represents an individual person.
 message Person {
-    string id = 1;
-    optional string name = 2;
-    string description = 3;
+  /* The id field is a string that uniquely identifies the Person.
+   It is required for a valid Person entity. */
+  string id = 1;
+
+  /* The name field is an optional string representing the name of the Person.
+   It may or may not be present in the Person entity. */
+  string name = 2;
+
+  /* The description field is a string that provides information about the Person.
+   It is required for a valid Person entity. */
+  string description = 3;
 }
