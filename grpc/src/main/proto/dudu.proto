@@ -1,7 +1,10 @@
 syntax = "proto3";
 
-package dudu;
-option java_package = "com.edudev.grpc";
+package edudev_grpc;
+
+option java_package = "com.edudev.grpc.protos";
+option java_outer_classname = "RootProtos";
+option java_multiple_files = true;
 
 // The 'PersonService' service allows clients to interact with the Person entity.
 service PersonService {

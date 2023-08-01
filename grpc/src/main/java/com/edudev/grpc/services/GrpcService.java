@@ -1,9 +1,9 @@
 package com.edudev.grpc.services;
 
 
-import com.edudev.grpc.Dudu.Description;
-import com.edudev.grpc.Dudu.Person;
-import com.edudev.grpc.PersonServiceGrpc.PersonServiceImplBase;
+import com.edudev.grpc.protos.Description;
+import com.edudev.grpc.protos.Person;
+import com.edudev.grpc.protos.PersonServiceGrpc.PersonServiceImplBase;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 
