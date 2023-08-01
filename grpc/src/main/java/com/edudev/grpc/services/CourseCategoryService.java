@@ -11,6 +11,9 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @GRpcService
 public class CourseCategoryService extends CategoryServiceImplBase {
     private final CategoryRepository categoryRepository;
@@ -67,5 +70,45 @@ public class CourseCategoryService extends CategoryServiceImplBase {
         responseObserver.onNext(CategoryListResponse.newBuilder().addAllCategories(categories).build());
         responseObserver.onCompleted();
 
+    }
+
+    /**
+     * Stream right below
+     */
+
+    @Override
+    public StreamObserver<CreateCategoryRequest> createCategoryStream(StreamObserver<CategoryListResponse> responseObserver) {
+        return new StreamObserver<>() {
+
+            final List<Category> categoryList = new ArrayList<>();
+
+            @Override
+            public void onNext(CreateCategoryRequest value) {
+                var category = new Category(null, value.getName(), value.getDescription());
+                categoryRepository.save(category);
+                categoryList.add(category);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                var categories = categoryList
+                        .stream()
+                        .map(category ->
+                                com.edudev.grpc.protos.Category.newBuilder()
+                                        .setId(category.id.toString())
+                                        .setName(category.name)
+                                        .setDescription(category.description)
+                                        .build()
+                        ).toList();
+
+                responseObserver.onNext(CategoryListResponse.newBuilder().addAllCategories(categories).build());
+                responseObserver.onCompleted();
+            }
+        };
     }
 }

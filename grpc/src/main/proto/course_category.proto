@@ -13,8 +13,8 @@ message Category {
 }
 
 message CreateCategoryRequest {
-  optional string name = 2;
-  optional string description = 3;
+  optional string name = 1;
+  optional string description = 2;
 }
 
 message GetCategoryRequest {
@@ -29,6 +29,7 @@ message Empty { }
 
 service CategoryService {
   rpc CreateCategory(CreateCategoryRequest) returns (Category);
+  rpc CreateCategoryStream(stream CreateCategoryRequest) returns (CategoryListResponse);
   rpc GetCategory(GetCategoryRequest) returns (Category);
   rpc ListCategories(Empty) returns (CategoryListResponse);
 }
