@@ -111,4 +111,34 @@ public class CourseCategoryService extends CategoryServiceImplBase {
             }
         };
     }
+
+    @Override
+    public StreamObserver<CreateCategoryRequest> createCategoryBidirectionalStream(StreamObserver<com.edudev.grpc.protos.Category> responseObserver) {
+        return new StreamObserver<>() {
+            @Override
+            public void onNext(CreateCategoryRequest value) {
+                var category = new Category(null, value.getName(), value.getDescription());
+                categoryRepository.save(category);
+
+                var response = com.edudev.grpc.protos.Category.newBuilder()
+                        .setId(category.id.toString())
+                        .setName(category.name)
+                        .setDescription(category.description)
+                        .build();
+
+                responseObserver.onNext(response);
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
+    }
 }
