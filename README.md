@@ -14,6 +14,7 @@
   <a href="#rocket-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_desk_person-how-to-use">How To Use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#thumbsup-how-to-contribute">How To Contribute</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#handshake-frankstein-ecosystem">Frankstein Ecosystem</a>
 </p>
 
 <p align="center">
@@ -43,6 +44,11 @@ $ cd spring-frankstein
 -  Create a branch with your feature: `git checkout -b my-feature`;
 -  Commit changes: `git commit -m 'feat: My new feature'`;
 -  Make a push to your branch: `git push origin my-feature`.
+
+## :handshake: Frankstein Ecosystem
+Take a look into others franksteins that were developed for studies.
+
+- <a href="https://github.com/Duduxs/java-frankstein">Java Frankstein</a>
 
 ---
 
