@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: leetcode-mysql-db
+    command: --init-file /data/application/init.sql
+    image: mysql
+    restart: always
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ~/mysql:/var/lib/mysql
+      - ./init.sql:/data/application/init.sql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
